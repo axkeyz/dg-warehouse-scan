@@ -38,7 +38,7 @@
     <h4 class="text-muted"><?php echo (new Query())->check_connection();?></h4>
     <div class="container">
     <div class="row">
-        <div class="col"></div>
+        <div class="col-md"></div>
         <div class="col">
             <form>
                 <div class="form-group">
@@ -58,7 +58,7 @@
                 </div>
             </form>
         </div>
-        <div class="col"></div>
+        <div class="col-md"></div>
     </div>
 
     <div id="results"></div>
