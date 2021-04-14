@@ -10,6 +10,9 @@ if( APP_DEBUG ){
 
 include('../classes/Query.php');
 
-include('theme/header.php');
+# Use php version if php (dynamic server-based rendering) is needed
+// include('theme/header.php'); 
+readfile('theme/header.html');
 include('theme/body.php');
-include('theme/footer.php');
+readfile('theme/footer.html');
+// include('theme/footer.php');
