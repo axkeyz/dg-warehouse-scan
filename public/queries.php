@@ -62,17 +62,21 @@ if(isset($item)){
 }
 
 if(isset($save) && $save != null){
-    foreach($new_items_details as $index => $new_item){
-        $item_code = $new_item['Current Item Code'];
-        if(isset($new_items_details_check[$item_code]) && is_array($new_items_details_check[$item_code])){
-            new Query("Update StockItem Set Location = ? Where OriginalItemCode = ?", [$location_code, $item_code]);
-        }
-        else{
-            new Query("Update StockItem Set Location = ? Where ItemCode = ?", [$location_code, $item_code]);
-        }
+    if(isset($new_items_details)){
+        foreach($new_items_details as $index => $new_item){
+            $item_code = $new_item['Current Item Code'];
+            if(isset($new_items_details_check[$item_code]) && is_array($new_items_details_check[$item_code])){
+                new Query("Update StockItem Set Location = ? Where OriginalItemCode = ?", [$location_code, $item_code]);
+            }
+            else{
+                new Query("Update StockItem Set Location = ? Where ItemCode = ?", [$location_code, $item_code]);
+            }
 
-        $new_items_details[$index]['Location'] = strtoupper($location);
-        $saved = 'table-success';
+            $new_items_details[$index]['Location'] = strtoupper($location);
+            $saved = 'table-success';
+        }
+    }else{
+        $get_errors[] = 'the item numbers field was super duper empty and thus it';
     }
 }
 ?>
@@ -80,13 +84,13 @@ if(isset($save) && $save != null){
 <?php if(isset($get_errors) && $get_errors != null): ?>
     <?php foreach($get_errors as $error): ?>
         <div class="alert alert-warning" role="alert">
-            There may be an error in your input as <?php echo $error; ?> was not found in the database.
+            There may be an error in your input as <?php echo $error; ?> was not found in the database. :(
         </div>
     <?php endforeach; ?>
 <?php endif; ?>
 <?php if(isset($saved) && $saved == 'table-success'): ?>
     <div class="alert alert-success" role="alert">
-        Items have been saved to this location! :)
+        Items have been saved to this location! :D
     </div>
 <?php endif; ?>
 Number of Rows: <?php echo $get_items->get_row_count(); ?><br />
