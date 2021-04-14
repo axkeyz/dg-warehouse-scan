@@ -1,7 +1,10 @@
 <body>
     <script>
         // var item_number = document.getElementById("item_group");
-        function fetch_location(location, item) {
+        function fetch_location() {
+            var location = document.getElementById('location').value;
+            var item = document.getElementById('item_number').value;
+            var save;
             if (location.length < 3) {
                 document.getElementById("item_group").classList.add('d-none');
                 return;
@@ -37,18 +40,18 @@
             <form>
                 <div class="form-group">
                     <label for="location">Select Location</label>
-                    <input type="text" oninput="fetch_location(this.value, document.getElementById('item_number').value)" id="location" class="form-control">
+                    <input type="text" oninput="fetch_location()" id="location" class="form-control">
                 </div>
                 <div class="form-group d-none" id="item_group">
                     <label for="item_number">Item Number</label>
-                    <input type="text" oninput="fetch_location(document.getElementById('location').value, this.value)" id="item_number" class="form-control">
+                    <input type="text" oninput="fetch_location()" id="item_number" class="form-control">
                 </div>
                 <!-- <div class="form-group d-none" id="add_item">
                     <button type="button" class="btn btn-outline-primary">Add</button>
                 </div> -->
                 <div class="btn-group d-none" role="group" id="add_item" aria-label="Action" id="add_item">
                     <button type="button" class="btn btn-outline-primary">Save item in location</button>
-                    <button type="button" class="btn btn-outline-danger" onclick="document.getElementById('item_number').value=''; fetch_location(document.getElementById('location').value, document.getElementById('item_number').value)">Clear item from location</button>
+                    <button type="button" class="btn btn-outline-danger" onclick="document.getElementById('item_number').value=''; fetch_location()">Clear item from location</button>
                 </div>
             </form>
         </div>

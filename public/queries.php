@@ -23,14 +23,17 @@ if(isset($_REQUEST['location'])){
 }
 
 if(isset($_REQUEST['item'])){
-    if(strlen($_REQUEST['item']) == 9){
-        $get_max_dg_item = (new Query("Select ItemCode from StockItem where Counter = (select max(Counter) from StockItem where Owner = ?)", [34]))->get_results();
-        $new_dg_item = intval(substr($get_max_dg_item[0]["ItemCode"], 2)) + 1;
-        $max_counter = (new Query("Select max(Counter) as Counter from StockItem", NULL))->get_results();
-        $new_counter = $max_counter[0]["Counter"] + 1;
+    if(strlen($_REQUEST['item']) >= 8){
+        // Check for existing OriginalItemCode (the one that gets scanned)
+        $details = (new Query("Select OriginalItemCode, ItemCode from StockItem where OriginalItemCode = ?", [$_REQUEST['item']]))->get_results();
 
-        $new_item_details = (new Query("Select ItemCode as 'Scanned Item Code', 'Current Item Code' = ?, WarehouseLocation.Name as Location, Status.Name as 'Shipping Status' 
-                                From StockItem left join WarehouseLocation on StockItem.Location = WarehouseLocation.Code left join Status on StockItem.Status = Status.Code Where StockItem.ItemCode = ?", ['DG'.$new_counter, $_REQUEST['item']]))->get_results()[0];
+        if(is_array($details)){
+            $new_item_details = (new Query("Select OriginalItemCode as 'Scanned Item Code', ItemCode as 'Current Item Code', WarehouseLocation.Name as Location, Status.Name as 'Shipping Status' 
+                            From StockItem left join WarehouseLocation on StockItem.Location = WarehouseLocation.Code left join Status on StockItem.Status = Status.Code Where OriginalItemCode = ?", [$_REQUEST['item']]))->get_results()[0];
+        }else{
+            $new_item_details = (new Query("Select OriginalItemCode as 'Scanned Item Code', ItemCode as 'Current Item Code', WarehouseLocation.Name as Location, Status.Name as 'Shipping Status' 
+            From StockItem left join WarehouseLocation on StockItem.Location = WarehouseLocation.Code left join Status on StockItem.Status = Status.Code Where ItemCode = ?", [$_REQUEST['item']]))->get_results()[0];
+        }       
     }
 }
 
