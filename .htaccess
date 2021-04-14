@@ -1,0 +1,9 @@
+RewriteEngine On
+RewriteBase /dg-warehouse-scan
+
+
+
+RewriteRule ^((?!public/).*)$ public/$1 [L,NC]
+
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule !.*\.php$ %{REQUEST_FILENAME}.php [QSA,L]
