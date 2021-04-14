@@ -1,8 +1,12 @@
 ## [Unreleased]
 
-### To be added
+### Added
 
-- Bulk update database
+- Bulk transfer of items
+
+### Changed
+
+- Alert system
 
 ## [v0.0.0] - 2021-04-15
 
