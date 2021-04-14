@@ -36,11 +36,11 @@
             <form>
                 <div class="form-group">
                     <label for="location">Select Location</label>
-                    <input type="text" onchange="fetch_location(this.value, document.getElementById('item_number').value)" id="location" class="form-control">
+                    <input type="text" oninput="fetch_location(this.value, document.getElementById('item_number').value)" id="location" class="form-control">
                 </div>
                 <div class="form-group d-none" id="item_group">
                     <label for="item_number">Item Number</label>
-                    <input type="text" onchange="fetch_location(document.getElementById('location').value, this.value)" id="item_number" class="form-control">
+                    <input type="text" oninput="fetch_location(document.getElementById('location').value, this.value)" id="item_number" class="form-control">
                 </div>
             </form>
         </div>
