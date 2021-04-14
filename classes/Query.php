@@ -8,10 +8,10 @@ class Query{
     private $conn;
     private $sql;
 
-    public function __construct($query = false, $params = false){
+    public function __construct($query = false, $params = []){
         // Connects to database & performs query if parameters are filled
         $this->conn = sqlsrv_connect( DB_HOST, $this->connection_info);
-        if($query && $params){
+        if($query){
             $this->sql = $query.json_encode($params);
             $this->search_database($query, $params);
         }
@@ -49,7 +49,7 @@ class Query{
         }
         
         if(sqlsrv_has_rows($results)) {  
-            $this->row_count = sqlsrv_num_rows($results);  
+            $this->row_count = sqlsrv_num_rows($results);
             // $this->results = sqlsrv_fetch_array( $results, SQLSRV_FETCH_ASSOC);
             $result_obj = [];
             while( $row = sqlsrv_fetch_array($results, SQLSRV_FETCH_ASSOC) ) {
