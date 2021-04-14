@@ -50,7 +50,7 @@ if(isset($item)){
                 $new_item_details = $new_item_details[0];
             }
         }       
-        $saved = 'table-success';
+        $saved = 'table-warning';
     }
 }
 
@@ -63,7 +63,7 @@ if(isset($save) && $save != null){
     }
 
     $new_item_details['Location'] = strtoupper($location);
-    $saved = 'table-info';
+    $saved = 'table-success';
 }
 ?>
 
