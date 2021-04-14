@@ -1,10 +1,10 @@
 <body>
     <script>
         // var item_number = document.getElementById("item_group");
-        function fetch_location() {
+        function fetch_location(save) {
             var location = document.getElementById('location').value;
             var item = document.getElementById('item_number').value;
-            var save;
+
             if (location.length < 3) {
                 document.getElementById("item_group").classList.add('d-none');
                 return;
@@ -18,6 +18,9 @@
                 if(item){
                     document.getElementById("add_item").classList.remove('d-none');
                     query += '&item=' + item;
+                }
+                if(save){
+                    query += '&save=' + save;
                 }
 
                 var xmlhttp = new XMLHttpRequest();
@@ -50,7 +53,7 @@
                     <button type="button" class="btn btn-outline-primary">Add</button>
                 </div> -->
                 <div class="btn-group d-none" role="group" id="add_item" aria-label="Action" id="add_item">
-                    <button type="button" class="btn btn-outline-primary">Save item in location</button>
+                    <button type="button" onclick="fetch_location('save')" class="btn btn-outline-primary">Save item in location</button>
                     <button type="button" class="btn btn-outline-danger" onclick="document.getElementById('item_number').value=''; fetch_location()">Clear item from location</button>
                 </div>
             </form>
