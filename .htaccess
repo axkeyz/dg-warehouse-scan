@@ -1,5 +1,5 @@
 RewriteEngine On
-RewriteBase /dg-warehouse-scan
+RewriteBase /your-project-folder-here
 
 RewriteRule ^((?!public/).*)$ public/$1 [L,NC]
 
