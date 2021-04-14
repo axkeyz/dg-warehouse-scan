@@ -8,21 +8,7 @@
             } else {
                 // document.getElementById("results").innerHTML = str;
                 document.getElementById("item_group").classList.remove('d-none');
-                // var http = new XMLHttpRequest();
-                // var url = '/dg-warehouse-scan/functions.php';
-                // var params = 'location=' + str;
-                // http.open('POST', url, true);
-
-                // //Send the proper header information along with the request
-                // http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-                // http.onreadystatechange = function() {//Call a function when the state changes.
-                //     if(http.readyState == 4 && http.status == 200) {
-                //         document.getElementById("results").innerHTML = http.responseText;
-                //     }
-                // }
-                // http.send(params);
-                query = "/dg-warehouse-scan/functions.php?";
+                query = "/dg-warehouse-scan/queries.php?";
                 if(location){
                     query += 'location=' + location;
                 }
@@ -62,6 +48,4 @@
     </div>
 
     <div id="results"></div>
-
-    <!-- <div id="txtHint"><b>Person info will be listed here...</b></div> -->
 </body>
