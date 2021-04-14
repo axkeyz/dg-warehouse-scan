@@ -8,7 +8,7 @@
             } else {
                 // document.getElementById("results").innerHTML = str;
                 document.getElementById("item_group").classList.remove('d-none');
-                query = "/dg-warehouse-scan/queries.php?";
+                query = "/<?php echo APP_FOLDER; ?>/queries.php?";
                 if(location){
                     query += 'location=' + location;
                 }
