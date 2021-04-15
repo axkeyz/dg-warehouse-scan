@@ -1,12 +1,19 @@
 ## [Unreleased]
 
+Currently none
+
+## [v0.0.1] - 2021-04-15
+
 ### Added
 
 - Bulk transfer of items
+- Possible easter eggs in the form of errors
+- Meta tag stuff
 
 ### Changed
 
 - Alert system
+- Mobile page layout
 
 ## [v0.0.0] - 2021-04-15
 
