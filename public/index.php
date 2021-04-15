@@ -17,7 +17,7 @@ readfile('theme/header.html');
 if($request == '/dg-warehouse-scan/'){
     include('theme/functions/warehouse.php');
 }else{
-    readfile('theme/404.html');
+    include('theme/404.php');
 }
 
 readfile('theme/footer.html');
