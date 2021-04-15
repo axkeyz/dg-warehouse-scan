@@ -7,7 +7,21 @@ Has been kinda broken into pieces to make simple apps more easily in the future 
 ## Installation guide
 
 1. Run `git clone https://github.com/axkeyz/dg-warehouse-scan`
-2. Check the .htaccess works for you. It should be writing the /public folder to your / root url. You may need to change the second line to whatever folder you currently hold your database in. `RewriteBase /your-project-folder-here`
+2. Check the .htaccess works for you. It should be writing the /public folder to your / root url. You may need to change the second line to whatever folder you currently hold your database in. `RewriteBase /your-project-folder-here`. If you don't have an htaccess, below is a sample:
+```
+RewriteEngine On
+RewriteBase /your-project-folder-here
+
+RewriteRule ^((?!public/).*)$ public/$1 [L,NC]
+
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule !.*\.php$ %{REQUEST_FILENAME}.php [QSA,L]
+
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(?!public/(?:index\.php)?$) public/index.php [L]
+```
 3. Add a config.php file to the route of your project. It should look like this:
 ```php
 <?php

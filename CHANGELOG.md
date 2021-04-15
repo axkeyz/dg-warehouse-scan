@@ -2,6 +2,25 @@
 
 Currently none
 
+## [v0.0.2] - 2021-04-16
+
+### Added
+
+- Allow bulk select & transfer of items to new location
+- Simple routing & 404 page
+
+### Changed
+
+- Key functions have been moved to public > theme > functions
+- Entering on the warehouse location field now goes to the Item Numbers
+- Improved error warnings
+- Improved README on .htaccess help
+
+### Fixed
+
+- An error where new items were shown as separate entry
+- An error where you could directly access /queries(.php)
+
 ## [v0.0.1] - 2021-04-15
 
 ### Added
