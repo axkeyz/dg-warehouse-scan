@@ -34,7 +34,7 @@
             }
         }
     </script>
-    <a href="/<?php echo APP_FOLDER; ?>" class="text-center" style="color:#f88e1e"><h1>DG Warehouse Scan</h1></a><br />
+    <a href="/<?php echo APP_FOLDER; ?>" class="text-center" style="color:#f88e1e"><h1>WH Transfer Items</h1></a><br />
     <div class="container">
     <div class="row">
         <div class="col-md"></div>
