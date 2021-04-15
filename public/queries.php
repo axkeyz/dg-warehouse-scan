@@ -93,9 +93,10 @@ if(isset($save) && $save != null){
         Items have been saved to this location! :D
     </div>
 <?php endif; ?>
-Number of Rows: <?php echo $get_items->get_row_count(); ?><br />
+Number of Items: <?php echo $get_items->get_row_count(); ?><?php if(isset($new_items_details) && $new_items_details != null){ echo '<span class="text-danger font-weight-bold"> + '.count($new_items_details).' new items</span>';} ?>
+<br/>
 <?php if(isset($items) && is_array($items)): ?>
-    <table class="table">
+    <table class="table table-secondary">
         <thead class="thead-dark">
             <tr>
                 <?php foreach($item_headers as $header): ?>

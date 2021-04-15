@@ -34,24 +34,23 @@
             }
         }
     </script>
-    <a href="/<?php echo APP_FOLDER; ?>"><h1>DG Warehouse Scan</h1></a>
-    <h4 class="text-muted"><?php echo (new Query())->check_connection();?></h4>
+    <a href="/<?php echo APP_FOLDER; ?>" class="text-center" style="color:#f88e1e"><h1>DG Warehouse Scan</h1></a><br />
     <div class="container">
     <div class="row">
         <div class="col-md"></div>
         <div class="col">
-            <form>
+            <form onsubmit="event.preventDefault();">
                 <div class="form-group">
                     <label for="location">Select Location</label>
                     <input type="text" oninput="fetch_location()" id="location" class="form-control">
                 </div>
                 <div class="form-group d-none" id="item_group">
                     <label for="item_number">Item Number(s)</label>
-                    <textarea type="text" oninput="fetch_location()" id="item_number" class="form-control" rows="3"></textarea>
+                    <textarea type="text" oninput="fetch_location()" id="item_number" class="form-control" rows="5"></textarea>
                     <small class="form-text text-muted">Add 'em one per line.</small>
                 </div>
                 <div class="btn-group d-none" role="group" id="add_item" aria-label="Action" id="add_item">
-                    <button type="button" onclick="fetch_location('save')" class="btn btn-outline-primary">Save item(s) in this location</button>
+                    <button type="button" onclick="fetch_location('save')" class="btn btn-outline-primary">Transfer & save item(s)</button>
                     <button type="button" class="btn btn-outline-danger" onclick="document.getElementById('item_number').value=''; fetch_location()">Clear item number(s)</button>
                 </div>
             </form>
