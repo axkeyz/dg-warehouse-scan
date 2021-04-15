@@ -44,7 +44,9 @@ if(isset($item)){
             if(is_array($details)){
                 $new_item_details = (new Query("Select OriginalItemCode as 'Scanned Item Code', ItemCode as 'Current Item Code', WarehouseLocation.Name as Location, Status.Name as 'Shipping Status' 
                                 From StockItem left join WarehouseLocation on StockItem.Location = WarehouseLocation.Code left join Status on StockItem.Status = Status.Code Where OriginalItemCode = ?", [$i]))->get_results()[0];
-                                $new_items_details[] = $new_item_details;
+                if(! in_array($new_item_details, $new_items_details)){
+                    $new_items_details[] = $new_item_details;
+                }
             }else{
                 $new_item_details = (new Query("Select OriginalItemCode as 'Scanned Item Code', ItemCode as 'Current Item Code', WarehouseLocation.Name as Location, Status.Name as 'Shipping Status' 
                 From StockItem left join WarehouseLocation on StockItem.Location = WarehouseLocation.Code left join Status on StockItem.Status = Status.Code Where ItemCode = ?", [$i]))->get_results();
@@ -53,7 +55,9 @@ if(isset($item)){
                     $get_errors[] = "Item Code ".$i;
                 }else{
                     $new_item_details = $new_item_details[0];
-                    $new_items_details[] = $new_item_details;
+                    if(! in_array($new_item_details, $new_items_details)){
+                        $new_items_details[] = $new_item_details;
+                    }
                 }
             }
             $new_items_details_check[$i] = $details;
