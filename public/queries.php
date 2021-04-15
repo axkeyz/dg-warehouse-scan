@@ -11,9 +11,9 @@ if( APP_DEBUG ){
     error_reporting(E_ALL);
 }
 
-$location = $_REQUEST['location'];
-$item = $_REQUEST['item'] ? explode(",", $_REQUEST['item']) : null;
-$save = $_REQUEST['save'] ?? null;
+$location = strip_tags($_REQUEST['location']); 
+$item = $_REQUEST['item'] ? explode(",", strip_tags($_REQUEST['item'])) : null;
+$save = isset($_REQUEST['save']) ? strip_tags($_REQUEST['save']) : null;
 $get_errors = [];
 
 if(isset($location)){
@@ -36,7 +36,7 @@ if(isset($location)){
 
         if(isset($location_code[0])){
             $location_code = $location_code[0]['Code'];
-            $location_error = 'Items in this location were not found in the database. Is that right?';
+            $location_error = 'The database found an empty location! Is that right?';
         }
 
         $get_errors[] = $location_error;
