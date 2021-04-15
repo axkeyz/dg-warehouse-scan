@@ -14,7 +14,7 @@ $request = $_SERVER['REQUEST_URI'];
 
 readfile('theme/header.html');
 
-if($request == '/dg-warehouse-scan/'){
+if($request == '/'.APP_FOLDER.'/'){
     include('theme/functions/warehouse.php');
 }else{
     include('theme/404.php');
