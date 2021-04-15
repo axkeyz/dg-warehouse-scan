@@ -349,12 +349,12 @@
         </div>
         <div class="col-md-6 align-self-center">
           <h1>404</h1>
-          <h2>UH OH! You're lost.</h2>
+          <h2>UH OH! You're lost in the middle of nowhere.</h2>
           <p>The page you are looking for does not exist.
-            How you got here is a mystery. But you can click the button below
+            How you got here is a mystery. But you can click the link below
             to go back to the homepage.
           </p>
-          <a href="/<?php echo APP_FOLDER; ?>"><button class="btn green">HOME</button></a>
+          <a href="/<?php echo APP_FOLDER; ?>"><button class="btn btn-link">HOME</button></a>
         </div>
       </div>
     </div>
