@@ -25,12 +25,28 @@ if(isset($location)){
     $items = $get_items->get_results();
     
     // $get_items = (new Query())->check_connection();
-    if($get_items->results == null){
-        $get_errors[] = "Warehouse Location";
+    if($items == null){
+
+        try {
+            $location_code = (new Query("Select Code from WarehouseLocation where Name = ?", [$location]))->get_results();
+            $location_error = 'This location was not found in the database. :(';
+        }catch (Exception $e) {
+            return false;
+        }
+
+        if(isset($location_code[0])){
+            $location_code = $location_code[0]['Code'];
+            $location_error = 'Items in this location were not found in the database. Is that right?';
+        }
+
+        $get_errors[] = $location_error;
+
     }else{
         $location_code = (new Query("Select Code from WarehouseLocation where Name = ?", [$location]))->get_results()[0]['Code'];
 
         $item_headers = $get_items->get_cols();
+
+        $bulk_transfer_itemcodes = implode('\n', array_column($items, 'Current Item Code'));
     }
 }
 
@@ -54,7 +70,7 @@ if(isset($item)){
                 From StockItem left join WarehouseLocation on StockItem.Location = WarehouseLocation.Code left join Status on StockItem.Status = Status.Code Where ItemCode = ?", [$i]))->get_results();
 
                 if($new_item_details == null){
-                    $get_errors[] = "Item Code ".$i;
+                    $get_errors[] = "The Item Code ".$i." doesn't exist in the database. :(";
                 }else{
                     $new_item_details = $new_item_details[0];
                     if(! in_array($new_item_details, $new_items_details)){
@@ -82,7 +98,7 @@ if(isset($save) && $save != null){
             $saved = 'table-success';
         }
     }else{
-        $get_errors[] = 'the item numbers field was super duper empty and thus it';
+        $get_errors[] = 'The item numbers field was super duper empty and thus nothing could be added to the database. :(';
     }
 }
 ?>
@@ -90,7 +106,7 @@ if(isset($save) && $save != null){
 <?php if(isset($get_errors) && $get_errors != null): ?>
     <?php foreach($get_errors as $error): ?>
         <div class="alert alert-warning" role="alert">
-            There may be an error in your input as <?php echo $error; ?> was not found in the database. :(
+            <?php echo $error; ?>
         </div>
     <?php endforeach; ?>
 <?php endif; ?>
@@ -99,8 +115,8 @@ if(isset($save) && $save != null){
         Items have been saved to this location! :D
     </div>
 <?php endif; ?>
-Number of Items: <?php echo $get_items->get_row_count(); ?><?php if(isset($new_items_details) && $new_items_details != null){ echo '<span class="text-danger font-weight-bold"> + '.count($new_items_details).' new items</span>';} ?>
-<br/>
+<div class="float-left">Number of Items: <?php echo $get_items->get_row_count(); ?></div><?php if(isset($new_items_details) && $new_items_details != null){ echo '<span class="text-danger font-weight-bold"> + '.count($new_items_details).' new items</span>';} ?>
+<a href="#" class="float-right" onclick="document.getElementById('item_number').value += '\n<?php if(isset($bulk_transfer_itemcodes)): echo $bulk_transfer_itemcodes; endif;?>'">Select items for bulk transfer</a>
 <?php if(isset($items) && is_array($items)): ?>
     <table class="table table-secondary">
         <thead class="thead-dark">
