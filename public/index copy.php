@@ -10,14 +10,9 @@ if( APP_DEBUG ){
 
 include('../classes/Query.php');
 
-$request = $_SERVER['REQUEST_URI'];
-
+# Use php version if php (dynamic server-based rendering) is needed
+// include('theme/header.php'); 
 readfile('theme/header.html');
-
-if($request == '/dg-warehouse-scan/'){
-    include('theme/functions/warehouse.php');
-}else{
-    readfile('theme/404.html');
-}
-
+include('theme/body.php');
 readfile('theme/footer.html');
+// include('theme/footer.php');
