@@ -1,5 +1,7 @@
 <?php
 
+if (!isset($_SERVER['HTTP_REFERER'])){ exit("Shoo shoo go away, why you tryna hack me anyway!?"); }
+
 include_once('../classes/Query.php');
 include_once('../config.php');
 
