@@ -1,7 +1,7 @@
 <?php
 
 // Exit if directly accessed through /queries (may need to rewrite .htaccess)
-if (!isset($_SERVER['HTTP_REFERER'])){ exit("Shoo shoo go away, why you tryna hack me anyway!?"); }
+if (!isset($_SERVER['HTTP_REFERER'])){ include('theme/header.html'); include('theme/404.php'); exit();}
 
 // Include necessary classes
 include_once('../classes/Query.php');
@@ -134,7 +134,7 @@ if(isset($save) && $save != null){
     </div>
 <?php endif; ?>
 <!-- Table of items in location: Lists # of items, # to be added and bulk transfer link -->
-<div class="float-left">Number of Items: <?php echo $get_items->get_row_count(); ?></div><?php if(isset($new_items_details) && $new_items_details != null){ echo '<span class="text-danger font-weight-bold"> + '.count($new_items_details).' new items</span>';} ?>
+<div class="float-left">Number of Items: <?php echo $get_items->get_row_count() ?? '0'; ?></div><?php if(isset($new_items_details) && $new_items_details != null){ echo '<span class="text-danger font-weight-bold">&nbsp;+ '.count($new_items_details).' new items</span>';} ?>
 <a href="#" class="float-right" onclick="document.getElementById('item_number').value += '\n<?php if(isset($bulk_transfer_itemcodes)): echo $bulk_transfer_itemcodes; endif;?>'">Select items for bulk transfer</a>
 <?php if(isset($items) && is_array($items)): ?>
     <table class="table table-secondary">
@@ -148,13 +148,13 @@ if(isset($save) && $save != null){
         <tbody>
             <?php if(isset($new_items_details) && $new_items_details != null): ?>
                 <!-- IItems to be added -->
-                    <?php foreach($new_items_details as $new_detail): ?>
-                        <tr>
-                            <?php foreach($new_detail as $new): ?>
-                                <td class="<?php echo $saved; ?>"><?php echo $new; ?></td>
-                            <?php endforeach; ?>
-                        </tr>
-                    <?php endforeach; ?>
+                <?php foreach($new_items_details as $new_detail): ?>
+                    <tr>
+                        <?php foreach($new_detail as $new): ?>
+                            <td class="<?php echo $saved; ?>"><?php echo $new; ?></td>
+                        <?php endforeach; ?>
+                    </tr>
+                <?php endforeach; ?>
             <?php endif; ?>
             <?php foreach($items as $it): ?>
                 <!-- Items in this location -->
