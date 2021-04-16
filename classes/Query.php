@@ -29,6 +29,7 @@ class Query{
     }
 
     public function get_errors(){
+        // Get errors and return in nice format
         $errors = sqlsrv_errors();
         $errtxt = "Error occured: ";
             foreach( $errors as $error) {

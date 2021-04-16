@@ -40,6 +40,8 @@ if(isset($location)){
         }
 
         if(isset($location_code[0])){
+            // Get column headers for making table headers later.
+            $item_headers = ['Scanned Item Code', 'Current Item Code', 'Location', 'Shipping Status'];
             $location_code = $location_code[0]['Code'];
             $location_error = 'The database found an empty location! Is that right?';
         }
@@ -52,7 +54,7 @@ if(isset($location)){
         $location_code = (new Query("Select Code from WarehouseLocation where Name = ?", [$location]))->get_results()[0]['Code'];
         
         // Get column headers for making table headers later.
-        $item_headers = $get_items->get_cols();
+        $item_headers = ['Scanned Item Code', 'Current Item Code', 'Location', 'Shipping Status'];
         
         // Gets all item codes of the items that were found in the database
         $bulk_transfer_itemcodes = implode('\n', array_column($items, 'Current Item Code'));
@@ -136,18 +138,18 @@ if(isset($save) && $save != null){
 <!-- Table of items in location: Lists # of items, # to be added and bulk transfer link -->
 <div class="float-left">Number of Items: <?php echo $get_items->get_row_count() ?? '0'; ?></div><?php if(isset($new_items_details) && $new_items_details != null){ echo '<span class="text-danger font-weight-bold">&nbsp;+ '.count($new_items_details).' new items</span>';} ?>
 <a href="#" class="float-right" onclick="document.getElementById('item_number').value += '\n<?php if(isset($bulk_transfer_itemcodes)): echo $bulk_transfer_itemcodes; endif;?>'">Select items for bulk transfer</a>
-<?php if(isset($items) && is_array($items)): ?>
-    <table class="table table-secondary">
+<?php if(isset($item_headers)): ?>
+    <table class="table" style="background-color: #e3e3e3;">
         <thead class="thead-dark">
             <tr><!-- Set headers of table -->
                 <?php foreach($item_headers as $header): ?>
-                    <th scope="col"><?php echo $header['Name']; ?></th>
+                    <th scope="col"><?php echo $header; ?></th>
                 <?php endforeach; ?>
             </tr>
         </thead>
         <tbody>
             <?php if(isset($new_items_details) && $new_items_details != null): ?>
-                <!-- IItems to be added -->
+                <!-- Items to be added -->
                 <?php foreach($new_items_details as $new_detail): ?>
                     <tr>
                         <?php foreach($new_detail as $new): ?>
@@ -156,14 +158,16 @@ if(isset($save) && $save != null){
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>
-            <?php foreach($items as $it): ?>
-                <!-- Items in this location -->
-                <tr>
-                    <?php foreach($it as $i): ?>
-                        <td><?php echo $i; ?></td>
-                    <?php endforeach; ?>
-                </tr>
-            <?php endforeach; ?>
+            <?php if(isset($items) && is_array($items)): ?>
+                <?php foreach($items as $it): ?>
+                    <!-- Items in this location -->
+                    <tr>
+                        <?php foreach($it as $i): ?>
+                            <td><?php echo $i; ?></td>
+                        <?php endforeach; ?>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </tbody>
     </table>
 <?php endif; ?>

@@ -1,6 +1,12 @@
 ## [Unreleased]
 
-Currently none
+### Added
+
+- A lot more comments
+
+### Changed
+
+- Show table headers when a location exists
 
 ## [v0.0.2] - 2021-04-16
 
