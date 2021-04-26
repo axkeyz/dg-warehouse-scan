@@ -76,7 +76,7 @@ if(isset($item)){
 
             if(is_array($details)){ // If there is an item that has that has that original item code, then use the original item code to get the details of the new item
                 $new_item_details = (new Query("Select OriginalItemCode as 'Scanned Item Code', ItemCode as 'Current Item Code', WarehouseLocation.Name as Location, Status.Name as 'Shipping Status' 
-                                From StockItem left join WarehouseLocation on StockItem.Location = WarehouseLocation.Code left join Status on StockItem.Status = Status.Code Where OriginalItemCode = ?", [$i]))->get_results()[0];
+                                From StockItem left join WarehouseLocation on StockItem.Location = WarehouseLocation.Code left join Status on StockItem.Status = Status.Code Where OriginalItemCode = ? order by Counter desc", [$i]))->get_results()[0];
                 if(! in_array($new_item_details, $new_items_details)){ // Only add if not a duplicated scan.
                     $new_items_details[] = $new_item_details;
                 }

@@ -8,6 +8,10 @@
 
 - Show table headers when a location exists
 
+### Fixed
+
+- A bug where the newest namechange would not be shown.
+
 ## [v0.0.2] - 2021-04-16
 
 ### Added
